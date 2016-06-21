@@ -1,0 +1,18 @@
+\unprotect
+\input regression-test %
+\protect
+
+\starttext
+
+\START
+
+Some text
+\tracingoutput  = 1
+\showboxbreadth = \maxdimen
+\showboxdepth   = \maxdimen
+
+\pagebreak
+
+\OMIT
+
+\stoptext

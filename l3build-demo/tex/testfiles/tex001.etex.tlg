@@ -1,0 +1,33 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Completed box being shipped out [1]
+\vbox(667.20255+0.0)x469.75499
+.\vbox(0.0+0.0)x469.75499, glue set 14.0fil
+..\glue -22.5
+..\hbox(8.5+0.0)x469.75499, glue set 469.75499fil
+...\vbox(8.5+0.0)x0.0
+...\glue 0.0 plus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\vbox(643.20255+0.0)x469.75499, glue set 633.20255fill
+..\special{pdf: docinfo << /Creator (TeX) /CreationDate () /ModDate () /Producer\ETC.}
+..\glue(\topskip) 3.16669
+..\hbox(6.83331+0.0)x469.75499, glue set 405.58823fil
+...\hbox(0.0+0.0)x20.0
+...\tenrm S
+...\tenrm o
+...\tenrm m
+...\tenrm e
+...\glue 3.33333 plus 1.66666 minus 1.11111
+...\tenrm t
+...\tenrm e
+...\tenrm x
+...\tenrm t
+...\penalty 10000
+...\glue(\parfillskip) 0.0 plus 1.0fil
+...\glue(\rightskip) 0.0
+..\glue 0.0 plus 1.0fill
+.\glue(\baselineskip) 17.55556
+.\hbox(6.44444+0.0)x469.75499, glue set 232.37749fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+..\tenrm 1
+..\glue 0.0 plus 1.0fil minus 1.0fil

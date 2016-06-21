@@ -1,0 +1,254 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+]
+\vbox(772.77686+0.0)x426.78743, direction TLT
+.\glue -72.26999
+.\glue(\parskip) 0.0
+.\hbox(845.04684+0.0)x426.78743, direction TLT
+..\localpar
+...\localinterlinepenalty=0
+...\localbrokenpenalty=0
+...\localleftbox=null
+...\localrightbox=null
+..\hbox(0.0+0.0)x0.0, direction TLT
+..\glue -72.26999
+..\hbox(845.04684+0.0)x597.50787, direction TLT
+...\hbox(0.0+0.0)x0.0, direction TLT
+...\hbox(845.04684+0.0)x597.50787, direction TLT
+....\hbox(845.04684+0.0)x597.50787, direction TLT
+.....\pdfliteral page"0 g 0 G"
+.....\vbox(845.04684+0.0)x597.50787, direction TLT
+......\vbox(845.04684+0.0)x597.50787, direction TLT
+.......\vbox(845.04684+0.0)x597.50787, direction TLT
+........\glue 71.12546
+........\glue(\parskip) 0.0
+........\hbox(0.0+0.0)x597.50787, glue set 526.37512fil, direction TLT
+.........\localpar
+..........\localinterlinepenalty=0
+..........\localbrokenpenalty=0
+..........\localleftbox=null
+..........\localrightbox=null
+.........\hbox(0.0+0.0)x0.0, direction TLT
+.........\glue 71.13275
+.........\vbox(0.0+0.0)x0.0, direction TLT
+..........\vbox(0.0+0.0)x0.0, direction TLT
+...........\glue 0.0
+...........\glue 0.0
+...........\glue(\parskip) 0.0
+...........\hbox(56.90294+0.0)x426.78743, direction TLT
+............\localpar
+.............\localinterlinepenalty=0
+.............\localbrokenpenalty=0
+.............\localleftbox=null
+.............\localrightbox=null
+............\hbox(0.0+0.0)x0.0, direction TLT
+............\glue -87.58026
+............\vbox(56.90294+0.0)x601.94795, glue set 42.42134fil, direction TLT
+.............\hbox(14.4816+0.0)x601.94795, direction TLT
+..............\vbox(0.0+0.0)x75.58197, direction TLT
+...............\hbox(0.0+0.0)x75.58197, direction TLT
+................\hbox(0.0+0.0)x75.58197, glue set 75.58197fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+..............\kern 11.99829
+..............\vbox(14.4816+0.0)x426.78743, direction TLT
+...............\hbox(10.42676+4.05484)x426.78743, direction TLT
+................\hbox(0.0+0.0)x426.78743, glue set 426.78741fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+................\kern -426.78743
+................\hbox(10.42676+4.05484)x426.78743, glue set 210.4537fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+.................\hbox(10.42676+4.05484)x0.0, direction TLT
+.................\pdfliteral page"0 g 0 G"
+.................\3>modern-designsize-12pt-rm-tf-0--0 1
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+................\kern -426.78743
+................\hbox(0.0+0.0)x426.78743, glue set 426.78741fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+..............\kern 11.99829
+..............\vbox(0.0+0.0)x75.58197, direction TLT
+...............\hbox(0.0+0.0)x75.58197, direction TLT
+................\hbox(0.0+0.0)x75.58197, glue set 75.58197fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+................\kern -75.58197
+................\hbox(0.0+0.0)x75.58197, glue set 75.58197fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+.............\glue 0.0 plus 1.0fil minus 1.0fil
+.............\kern 0.0
+............\penalty 10000
+............\glue(\parfillskip) 0.0 plus 1.0fil
+............\glue(\rightskip) 0.0
+...........\glue -56.90294
+...........\glue 56.90294
+...........\glue 597.51323
+...........\glue -597.51323
+...........\glue(\parskip) 0.0
+...........\glue(\lineskip) 0.0
+...........\hbox(597.51323+0.0)x426.78743, direction TLT
+............\localpar
+.............\localinterlinepenalty=0
+.............\localbrokenpenalty=0
+.............\localleftbox=null
+.............\localrightbox=null
+............\hbox(0.0+0.0)x0.0, direction TLT
+............\glue -87.58026
+............\vbox(597.51323+0.0)x601.94795, glue set 298.75662fil, direction TLT.............\glue 0.0 plus 1.0fil minus 1.0fil
+.............\hbox(0.0+0.0)x601.94795, direction TLT
+..............\vbox(0.0+0.0)x75.58197, direction TLT
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+...............\hbox(0.0+0.0)x75.58197, direction TLT
+................\hbox(0.0+0.0)x75.58197, glue set 75.58197fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+..............\kern 11.99829
+..............\vbox(0.0+0.0)x426.78743, direction TLT
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+...............\hbox(0.0+0.0)x426.78743, direction TLT
+................\hbox(0.0+0.0)x426.78743, glue set 426.78741fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+................\kern -426.78743
+................\hbox(0.0+0.0)x426.78743, glue set 213.3937fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+................\kern -426.78743
+................\hbox(0.0+0.0)x426.78743, glue set 426.78741fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+..............\kern 11.99829
+..............\vbox(0.0+0.0)x75.58197, direction TLT
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+...............\hbox(0.0+0.0)x75.58197, direction TLT
+................\hbox(0.0+0.0)x75.58197, glue set 75.58197fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+................\kern -75.58197
+................\hbox(0.0+0.0)x75.58197, glue set 75.58197fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+.............\glue 0.0 plus 1.0fil minus 1.0fil
+.............\kern 0.0
+............\penalty 10000
+............\glue(\parfillskip) 0.0 plus 1.0fil
+............\glue(\rightskip) 0.0
+...........\glue -597.51323
+...........\glue 597.51323
+...........\glue 0.0
+...........\glue(\parskip) 0.0
+...........\glue(\lineskip) 0.0
+...........\hbox(56.90294+0.0)x426.78743, direction TLT
+............\localpar
+.............\localinterlinepenalty=0
+.............\localbrokenpenalty=0
+.............\localleftbox=null
+.............\localrightbox=null
+............\hbox(0.0+0.0)x0.0, direction TLT
+............\glue -87.58026
+............\vbox(56.90294+0.0)x601.94795, glue set 56.90294fil, direction TLT
+.............\glue 0.0 plus 1.0fil minus 1.0fil
+.............\hbox(0.0+0.0)x601.94795, direction TLT
+..............\vbox(0.0+0.0)x75.58197, direction TLT
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+...............\hbox(0.0+0.0)x75.58197, direction TLT
+................\hbox(0.0+0.0)x75.58197, glue set 75.58197fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+..............\kern 11.99829
+..............\vbox(0.0+0.0)x426.78743, direction TLT
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+...............\hbox(0.0+0.0)x426.78743, direction TLT
+................\hbox(0.0+0.0)x426.78743, glue set 426.78741fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+................\kern -426.78743
+................\hbox(0.0+0.0)x426.78743, glue set 213.3937fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+................\kern -426.78743
+................\hbox(0.0+0.0)x426.78743, glue set 426.78741fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+..............\kern 11.99829
+..............\vbox(0.0+0.0)x75.58197, direction TLT
+...............\glue 0.0 plus 1.0fil minus 1.0fil
+...............\hbox(0.0+0.0)x75.58197, direction TLT
+................\hbox(0.0+0.0)x75.58197, glue set 75.58197fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+................\kern -75.58197
+................\hbox(0.0+0.0)x75.58197, glue set 75.58197fil, direction TLT
+.................\glue 0.0 plus 1.0fil minus 1.0fil
+.............\kern 0.0
+............\penalty 10000
+............\glue(\parfillskip) 0.0 plus 1.0fil
+............\glue(\rightskip) 0.0
+...........\glue -56.90294
+...........\glue 56.90294
+...........\glue 0.0
+...........\glue 0.0 plus 1.0filll
+..........\glue(\lineskip) 0.0
+..........\vbox(0.0+0.0)x0.0, direction TLT
+...........\glue 56.90294
+...........\glue(\parskip) 0.0
+...........\hbox(597.51323+0.0)x426.78743, direction TLT
+............\localpar
+.............\localinterlinepenalty=0
+.............\localbrokenpenalty=0
+.............\localleftbox=null
+.............\localrightbox=null
+............\hbox(0.0+0.0)x0.0, direction TLT
+............\hbox(597.51323+0.0)x426.78743, glue set - 87.58026fil, direction TLT
+.............\glue -87.58026
+.............\glue 75.58197
+.............\kern -75.58197
+.............\kern 87.58026
+.............\hbox(597.51323+0.0)x426.78743, direction TLT
+..............\glue 0.0 plus 1.0fil minus 1.0fil
+..............\hbox(597.51323+0.0)x426.78743, direction TLT
+...............\vbox(597.51323+0.0)x426.78743, direction TLT
+................\hbox(597.51323+0.0)x426.78743, direction TLT
+.................\localpar
+..................\localinterlinepenalty=0
+..................\localbrokenpenalty=0
+..................\localleftbox=null
+..................\localrightbox=null
+.................\vbox(597.51323+0.0)x426.78743, glue set 290.60321fil, direction TLT
+..................\glue(\topskip) 3.552 plus 60.0
+..................\hbox(8.448+0.252)x426.78743, glue set 374.88739fil, direction TLT
+...................\localpar
+....................\localinterlinepenalty=0
+....................\localbrokenpenalty=0
+....................\localleftbox=null
+....................\localrightbox=null
+...................\hbox(0.0+0.0)x0.0, direction TLT
+...................\3>modern-designsize-12pt-rm-tf-0--0 S
+...................\3>modern-designsize-12pt-rm-tf-0--0 o
+...................\3>modern-designsize-12pt-rm-tf-0--0 m
+...................\3>modern-designsize-12pt-rm-tf-0--0 e
+...................\glue(\spaceskip) 3.912 plus 1.956 minus 1.304
+...................\3>modern-designsize-12pt-rm-tf-0--0 t
+...................\3>modern-designsize-12pt-rm-tf-0--0 e
+...................\3>modern-designsize-12pt-rm-tf-0--0 x
+...................\3>modern-designsize-12pt-rm-tf-0--0 t
+...................\penalty 10000
+...................\glue(\parfillskip) 0.0 plus 1.0fil
+...................\glue(\rightskip) 0.0
+..................\glue 0.0 plus 1.0fil
+..................\glue 4.05482
+..................\glue 0.0 plus 1.0fil
+.................\penalty 10000
+.................\glue(\parfillskip) 0.0 plus 1.0fil
+.................\glue(\rightskip) 0.0
+..............\glue 0.0 plus 1.0fil minus 1.0fil
+.............\kern 11.99829
+.............\glue 75.58197
+.............\kern -75.58197
+.............\kern 75.58197
+.............\glue 0.0 plus 1.0fil minus 1.0fil
+............\penalty 10000
+............\glue(\parfillskip) 0.0 plus 1.0fil
+............\glue(\rightskip) 0.0
+.........\penalty 10000
+.........\glue(\parfillskip) 0.0 plus 1.0fil
+.........\glue(\rightskip) 0.0
+..\penalty 10000
+..\glue(\parfillskip) 0.0 plus 1.0fil
+..\glue(\rightskip) 0.0
+backend         > xmp > using file 'C:/texlive/2016/texmf-dist/tex/context/base/mkiv/lpdf-pdx.xml'
+pages           > flushing realpage 1, userpage 1

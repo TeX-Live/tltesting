@@ -1,0 +1,11 @@
+\input regression-test %
+
+\documentclass{article}
+\usepackage{color}
+\begin{document}
+
+\START
+Some \textcolor{blue}{text}
+\showoutput
+
+\end{document}
