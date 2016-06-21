@@ -1,0 +1,9 @@
+\input regression-test %
+
+\START
+Some text
+\tracingoutput  = 1
+\showboxbreadth = \maxdimen
+\showboxdepth   = \maxdimen
+
+\bye
