@@ -3,8 +3,6 @@
 \documentclass{article}
 \begin{document}
 
-\START
 Some text
-\showoutput
 
 \end{document}
