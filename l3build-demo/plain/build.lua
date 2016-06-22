@@ -2,7 +2,7 @@
 
 -- Identify the bundle and module
 bundle = "tltesting"
-module = "tex"
+module = "plain"
 
 -- Treat as a bundle: all the scratch files in one place
 maindir = ".."
