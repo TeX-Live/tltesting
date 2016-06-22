@@ -14,4 +14,4 @@ The tests can be run using
 Note that `l3build` is actively developed and new features may be added over
 time to support a wider range of test arrangements. At present, the test system
 is designed such that all tests are run with each engine specified, but there
-is an assumption that the same engine will be used for all of the tests.
+is an assumption that the same format will be used for all of the tests.
