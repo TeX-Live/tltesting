@@ -9,7 +9,6 @@ Completed box being shipped out [1]
 ...\glue 0.0 plus 1.0fil
 ..\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(643.20255+0.0)x469.75499, glue set 633.20255fill
-..\special{pdf: docinfo << /Creator (TeX) /CreationDate () /ModDate () /Producer\ETC.}
 ..\glue(\topskip) 3.16669
 ..\hbox(6.83331+0.0)x469.75499, glue set 405.58823fil
 ...\hbox(0.0+0.0)x20.0
