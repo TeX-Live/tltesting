@@ -250,5 +250,3 @@ Don't change this file in any respect.
 ..\penalty 10000
 ..\glue(\parfillskip) 0.0 plus 1.0fil
 ..\glue(\rightskip) 0.0
-backend         > xmp > using file 'C:/texlive/2016/texmf-dist/tex/context/base/mkiv/lpdf-pdx.xml'
-pages           > flushing realpage 1, userpage 1
