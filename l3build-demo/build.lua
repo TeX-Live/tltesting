@@ -4,7 +4,7 @@
 bundle = "tltesting"
 module = ""
 
-modules = {"context", "latex", "tex"}
+modules = {"context", "latex", "plain"}
 
 -- Find and run the build system
 kpse.set_program_name("kpsewhich")
