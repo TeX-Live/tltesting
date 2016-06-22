@@ -9,6 +9,4 @@ Some text
 \showboxbreadth = \maxdimen
 \showboxdepth   = \maxdimen
 
-\pagebreak
-
 \stoptext
