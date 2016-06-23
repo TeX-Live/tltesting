@@ -1,0 +1,41 @@
+#!/bin/sh
+# \
+exec expect -f "$0" ${1+"$@"}
+# $Id: run-while-living.exp 303 2009-04-06 22:38:32Z zw $
+
+# Author: Z. Wagner -- Ice Bear Soft, http://icebearsoft.euweb.cz
+# License: GPL
+
+# This script runs the specified program while it is living, i.e. while it outputs something on the
+# standard output. If the first argument consists of digits only, it is considered a timeout. If
+# its value is nonpositive, it is ignored and a default timeout is used. If the first argument
+# contains any nondigit character, the timeout is not changed and the first argument is treated as
+# the command name. In the rare case the command consists of digits only the timeout specification
+# becomes mandatory.
+
+# Return values:
+# 4 = No command specified
+# 2 = Cannot spawn the specified command
+# 1 = Timeout
+# 0 = Program terminated normally (return value from the command is not available)
+
+# Examine parameters
+set argc [llength $argv]
+if {$argc == 0} {
+  puts stderr "No command specified!"
+  exit 4
+}
+set arg0 [lindex $argv 0]
+if {$argc > 1 && [regexp "^\[0-9]+$" $arg0]} {
+  if {$arg0 > 0} {set timeout $arg0}
+  set firstarg 1
+} else {
+  set firstarg 0
+}
+
+# Spawn the comand and expect results
+if [catch {eval spawn [lrange $argv $firstarg end]}] {
+  puts stderr "Cannot spawn [lrange $argv $firstarg end]"
+  exit 2
+}
+expect -re ".+" exp_continue timeout {exit 1}
