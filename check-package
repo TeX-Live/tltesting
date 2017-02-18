@@ -1,0 +1,447 @@
+#!/usr/bin/env perl
+# Originally written by Norbert Preining, 2017.  Public domain.
+# 
+# Test various files on their "usability" or "loadability"
+#
+# Ideas:
+# - tlpobj contains
+#       testfile ....tex
+#       reference ....pdf
+# later: auto generation
+# - .cls        =>      test with pdflatex and compare pdfs
+# - .sty        =>      load in article or some other class?
+#
+# functionality:
+#   scriptname check [-all] | <pkg> ...        
+#       checks all/passed packages
+#   scriptname rebuild [-all] | <pkg> ...
+#       rebuilds reference file for all/passed packages
+#
+# further arguments:
+#  --basedir BASE    location of files: BASE/<pkg>/...
+#  --master MASTER   location of Master tree
+#                    (root of an installation containing tlpkg)
+#
+#
+# TODO
+# * fix layout of BASE/...
+#
+# Future ideas:
+# * provide CTAN package for building reference pdf and
+#   submitting it to TeX Live together with a test file
+#
+
+my $Master;
+
+BEGIN {
+  $^W = 1;
+  $| = 1;
+  (my $mydir = $0) =~ s,/[^/]*$,,;
+  my $tlroot = "$mydir/../..";
+  unshift (@INC, "$tlroot/tlpkg");
+  chomp ($Master = `cd $mydir/../.. && pwd`);
+}
+
+use File::Find;
+use Getopt::Long;
+use Pod::Usage;
+
+use TeXLive::TLPDB;
+use TeXLive::TLConfig;
+use TeXLive::TLUtils qw(info debug ddebug debug_hash tlwarn tldie);
+
+my $prg = TeXLive::TLUtils::basename($0);
+
+my $opt_basedir = "/home/norbert/Development/TeX/tltesting.git/testfiles";
+my $opt_help = 0;
+my $opt_version = 0;
+my $opt_all = 0;
+
+TeXLive::TLUtils::process_logging_options ();
+GetOptions (
+  "base=s"     => \$opt_basedir,
+  "all|a"      => \$opt_all,
+  "version"    => \$opt_version,
+  "help|?"     => \$help) || pod2usage(1);
+
+pod2usage ("-exitstatus" => 0, "-verbose" => 2) if $help;
+if ($opt_version) { print "dev\n"; exit 0; } 
+
+#
+if ($opt_all) { die("option -all is not implemented by now!"); }
+
+#
+# we want to setup the master that we are running all tests
+# with our own programs
+$::installerdir = $Master;  # TLUtils.pm should be smarter
+$ENV{'PATH'} = "$Master/bin/" . TeXLive::TLUtils::platform() . ":$ENV{PATH}";
+
+exit (&main());
+
+
+sub main {
+  # no interference from TEXMFHOME, etc.
+  $ENV{'TEXMFHOME'}   = "/nonesuch-home";
+  $ENV{'TEXMFVAR'}    = "/nonesuch-uvar";
+  $ENV{'TEXMFCONFIG'} = "/nonesuch-config";
+  $ENV{'TEXMFLOCAL'}  = "/nonesuch-local";
+
+  # load TLPDB
+  my $tlpdb = TeXLive::TLPDB->new("root" => $Master);
+  die "cannot find tlpdb in $Master" unless defined($tlpdb);
+
+  #
+  my $cmd = shift @ARGV;
+
+  # setup packages to check:
+  my @packs = @ARGV;
+
+  my $ret = 0;
+  if ($cmd eq "check" || $cmd eq "rebuild") {
+    for my $p (@packs) {
+      $ret += check_rebuild_package($cmd, $p);
+    }
+  } else {
+    die("unknown command: $cmd");
+  }
+  exit($ret);
+}
+
+
+# check or rebuild reference for one package
+sub check_rebuild_package {
+  my ($cmd, $p) = @_;
+  die "NOT IMPLEMENTED";
+}
+
+
+
+# Run fmtutil --fmtdir=$OUTDIR --recorder ..., to recreate the recorder
+# files which are the basis for finding the dependencies.
+# 
+# OUTDIR is completely removed first (!!), on the theory that this job
+# should only be done in temporary directories.
+# 
+sub run_fmtutil {
+  my ($outdir) = @_;
+  
+  # yep, destroy output directory tree.
+  TeXLive::TLUtils::rmtree ($outdir);
+  mkdir ($outdir, 0775) || die "$prg: mkdir($outdir) failed: $!";
+  
+  # the output from fmtutil can be useful in debugging.
+  my $logfile = "$outdir/fmtutil.log";
+  my $cmd = "fmtutil --sys --recorder --strict --fmtdir=$outdir "
+             . "$opt_fmtargs >$logfile 2>&1";
+  &info ("Running $cmd\n");
+  my $retval = system ($cmd);
+  $retval >>= 8 if $retval > 0;
+  if ($retval) {
+    tlwarn ("fmtutil exit status = $retval; contents of $logfile =\n");
+    tlwarn (`cat $logfile`);
+    tldie ("fmtutil failed, goodbye.\n");
+  }
+  return $retval;
+}
+
+
+# Return a hash with each key being a string of the form ENGINE.FORMAT,
+# and the corresponding value a reference to the list of files used to
+# make that format with that engine.  This is based on reading the
+# recorder files (format.fls/.ofl) for the format in FMTDIR.
+# Uninteresting files are removed from the list, as is the Master
+# directory prefix.
+# 
+sub files_per_format {
+  my ($fmtdir) = @_;
+  my %ret;
+  
+  # gather all fls files.
+  my @fls = ();
+  my $recorder_files = sub {
+    # fun with perl: we use an anonymous sub because it's lexically scoped,
+    #   hence we can update a my variable inside.  Explanation at, e.g.,
+    #   http://stackoverflow.com/questions/8839005
+    # In this case, we could also pass a lambda sub to find, since
+    #   this sub is so simple, but for purposes of example, do it this way.
+    push (@fls, $File::Find::name)
+      if $File::Find::name =~ /\.(fls|ofl)$/
+  };
+  File::Find::find ($recorder_files, $fmtdir);
+  
+  # each fls file will become an entry in the return hash.
+  my $fls_count = @fls;
+  &info ("Reading $fls_count fls file(s): @fls\n");
+  for my $fls_name (@fls) {
+    open (my $fls, $fls_name) || die "open($fls_name) failed: $!";
+    my @files = ();
+    while (<$fls>) {
+      next unless s/^INPUT //;
+      next if m,/web2c/texmf\.cnf$,;       # read internally by kpathsea
+      next if m,/fontname/texfonts\.map$,; # likewise
+      next if m,/texsys\.aux$,;            # aux file created during run
+      chomp;
+      s,^${Master}/,,;			   # rm prefix
+      push (@files, $_);
+    }
+    close ($fls) || warn "close($fls_name) failed: $!";
+    
+    # The engine name is the directory above the format file,
+    # and the format name is the format file without extension.
+    my ($engine,$format) = ($fls_name =~ m!^.*/([^/]+)/([^/.]+)\.[^/]+$!);
+    #
+    # we'd have to have a similar special case for mpost if mem files
+    # were still used (see rebuild_one_format in fmtutil).
+    $engine = "mf-nowin" if $engine eq "metafont";
+    #
+    my $ef = "$engine.$format";
+
+    # Unfortunately, format filenames themselves are not unique, due to
+    # cont-en and pdfcsplain.  Shouldn't be any engine+format dups, though.
+    # 
+    tldie ("$prg: already saw format $ef\n (with files @{$ret{$ef}}),\n"
+           . "  files now = @files\n")
+      if exists $ret{$ef};
+    $ret{$ef} = \@files;
+  }
+
+  #&debug_hash ("files_per_format returning hash", %ret);
+  return %ret;
+}
+
+
+# Read TLPDB_FILE and return references to three hashes:
+# the first mapping contained files to TL package names, 
+# the second mapping engine.format names to their specified fmttriggers,
+# and the third mapping engine.format names to the package defining them.
+# 
+# Instead of using the general TeXLive::TLPDB functions, read the tlpdb
+# file ourselves.  We want to build the file->package mapping just once,
+# for all files, or things become noticeably slow.  (The tlpfiles script
+# does this too, but we repeat that code here because we want to find
+# the fmttriggers too.)
+#
+sub tlpdb_by_file {
+  my ($tlpdb_file) = @_;
+  my (%tlpfiles, %fmttriggers, %fmtpkgcontainers);
+  
+  open (my $tlpdb, $tlpdb_file) || die "open($tlpdb_file) failed: $!";
+  my $pkg;
+  while (<$tlpdb>) {
+    chomp;
+    if (/^name /) {  # notice package names
+      (undef,$pkg) = split (/ /);
+
+    } elsif (s/^execute +AddFormat +//) {  # notice AddFormat lines
+      my %af = TeXLive::TLUtils::parse_AddFormat_line ($_);
+      if (exists $af{"error"}) {
+        tldie ("$prg: parse_AddFormat_line failed: $af{error}\n"
+               . "line = $_\n");
+      }
+      if ($af{"fmttriggers"}) {
+        my $ef = "$af{engine}.$af{name}";
+        if (exists ($fmttriggers{$ef})) {
+          tldie ("$prg: already saw triggers for $ef ($fmttriggers{$ef}),"
+                 . "  triggers now = $af{fmttriggers}\n");
+        }
+        $fmttriggers{$ef} = $af{"fmttriggers"};
+        $fmtpkgcontainers{$ef} = $pkg;
+        #warn "  fmtpkgcontainers{$ef} = $pkg\n";
+      } else {
+        tlwarn ("$prg: no fmttriggers: $_\n");
+      }
+
+    } elsif (s/^ //) { # notice file names
+      # we carefully designed the format so that the only lines with
+      # leading spaces are the files.
+      # The installer "package" isn't one, just ignore it.
+      next if $pkg eq "00texlive.installer";
+      my $f = $_;
+      tlwarn ("$prg: already saw file $f (package $tlpfiles{$f}),"
+              . " now in package $pkg\n")
+        if exists $tlpfiles{$f}; # should never happen
+      $tlpfiles{$f} = $pkg;
+    }
+  }
+  close ($tlpdb) || warn "close($tlpdb_file) failed: $!";
+  
+  &info ("TLPDB files: " . scalar (keys %tlpfiles)
+         . "  triggers: " . scalar (keys %fmttriggers) . "\n");
+  return (\%tlpfiles, \%fmttriggers, \%fmtpkgcontainers);
+}
+  
+
+# Return a hash with each key being a format name and the corresponding
+# value a reference to the list of TL packages which contain the files
+# used to make that format, based on the incoming TLPDB and FILES_PER_FORMAT.
+# 
+sub pkgs_per_format {
+  my ($tlpdb,%files_per_format) = @_;
+  my %ret;  # format->pkgs mapping
+
+  for my $format (sort keys %files_per_format) {
+    &debug ("finding packages for $format...\n");
+    my %pkgs_for_this_format;
+    my $files_ref = $files_per_format{$format};
+    for my $f (@$files_ref) {
+      if (exists $tlpdb->{$f}) {
+        my $pkg = $tlpdb->{$f};
+        $pkgs_for_this_format{$pkg} = 1;
+      } else {
+        tlwarn ("$prg: tl package not found for file: $f\n");
+      }
+    }
+
+    # looked up all files for this format; save our list of packages.
+    my @pkgs = sort keys %pkgs_for_this_format;
+    &debug ("  packages for $format: @pkgs\n");
+    if (@pkgs == 0) {
+      tlwarn ("$prg: no packages for format $format?  files = @$files_ref\n");
+    }
+    $ret{$format} = \@pkgs;
+  }
+
+  &info ("Formats found: " . scalar (keys %ret) . "\n");
+  #&debug_hash ("pkgs_per_format returning", %ret);
+  return %ret;
+}
+
+
+# Compare lists of packages required by building (PKGS_PER_FORMAT) with
+# lists of existing trigger directives (FMTTRIGGER).  Return 0 if
+# identical, 1 otherwise (and report differences).  Ignore hyphenation
+# dependencies and the package itself containing the trigger directive
+# (FMTPKGCONTAINERS).
+# 
+sub compare_pkgs_and_triggers {
+  my ($pkgs_per_format,$fmttriggers,$fmtpkgcontainers) = @_;
+  my $bad_p = 0;
+  my $all_pkgs = 0;
+  
+  # we don't include these as fmttriggers since when they meaningfully
+  # change, fmtutil should get called anyway due to language.* changing.
+  my @skip_pkgs = qw(dehyph-exptl hyph-utf8 ruhyphen ukrhyph);
+  # Anything matching hyphen-.* is also ignored.
+
+  for my $ef (sort keys %$pkgs_per_format) {
+    my @recorded_pkgs = @{$pkgs_per_format->{$ef}};
+    $all_pkgs += @recorded_pkgs;
+
+    my %recorded_pkgs;
+    @recorded_pkgs{@recorded_pkgs} = ();  # hash slice for recorded pkgs
+
+    if (defined $fmttriggers->{$ef}) {
+      my @tlpdb_pkgs = @{$fmttriggers->{$ef}};
+      my %tlpdb_pkgs;
+      @tlpdb_pkgs{@tlpdb_pkgs} = ();       # hash slice for tlpdb pkgs
+      
+      my @recorded_only = ();
+      for my $r (keys %recorded_pkgs) {
+        if (exists $tlpdb_pkgs{$r}) {
+          delete $tlpdb_pkgs{$r}; # ok, in both
+        } else {
+          next if grep ($_ eq $r, @skip_pkgs);
+          next if $r =~ /hyphen-.*/;
+          next if $r eq $fmtpkgcontainers->{$ef};
+          push (@recorded_only, $r);
+        }
+      }
+      if (keys %tlpdb_pkgs) {
+        tlwarn ("$prg: $ef triggers only in tlpdb: "
+                . join (",", sort keys %tlpdb_pkgs) . "\n");
+        $bad_p = 1;
+      }
+      if (@recorded_only) {
+        tlwarn ("$prg: $ef triggers only in recorder: "
+                . join (",", sort @recorded_only) . "\n");
+        $bad_p = 1;
+      }
+      
+      delete $fmttriggers->{$ef};
+
+    } else {
+      # not in tlpdb at all; output needed fmttriggers directive.
+      tlwarn ("$prg: no fmttriggers in tlpdb: $ef\n"
+              . "  fmttriggers=" . join (",", @recorded_pkgs) . "\n");
+      $bad_p = 1;
+    }
+  }
+  
+  for my $ef (sort keys %$fmttriggers) {
+    my $trig = join (",", sort @{$fmttriggers->{$ef}});
+    tlwarn ("$prg: format in tlpdb only: "
+            . "$ef ($trig)\n");
+    $bad_p = 1;
+  }
+  
+  info ("Triggers checked: $all_pkgs (includes duplicates)\n");
+  return $bad_p;
+}
+
+__END__
+
+=head1 NAME
+
+check-fmttriggers - check that all needed packages trigger format rebuilds
+
+=head1 SYNOPSIS
+
+check-fmttriggers [I<option>]...
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--fmtargs> I<str>
+
+Pass I<str> to C<fmtutil>, overriding C<--all>; e.g., for debugging you
+might want C<--fmtargs=--byfmt=tex> to build only C<tex.fmt>.  (Many
+inconsistencies with the TLPDB will be reported, naturally.)
+
+=item B<--fmtdir> I<dir>
+
+Rebuild formats in I<dir>; default C</tmp/fmttriggers>.  This directory
+is completely removed before rebuilding, so do not use any system
+directory.
+
+=item B<--no-rerecord>
+
+Do not rebuild all formats to remake the recorder files; the default
+(C<--rerecord>) is to do so.
+
+=item B<--help>
+
+Display this documentation and exit.
+
+=item B<--version>
+
+Display version information and exit.
+
+=back
+
+The standard options B<-q>, B<-v>, and B<-logfile>=I<file> are also
+accepted; see the C<process_logging_options> function in
+L<TeXLive::TLUtils> for details.  In particular, with B<-v> or higher,
+the packages found to be needed for each I<engine.format> combination
+will be reported.
+
+=head1 DESCRIPTION
+
+Compare the fmttriggers= listed in the tlpsrc files with the actual
+dependencies found by running fmtutil -recorder and inspecting the
+recorder (.fls) files.
+
+=head1 AUTHORS AND COPYRIGHT
+
+This script and its documentation were written for the TeX Live
+distribution (L<http://tug.org/texlive>) and both are licensed under the
+GNU General Public License Version 2 or later.
+
+=cut
+
+# Local Variables:
+# perl-indent-level: 2
+# tab-width: 2
+# indent-tabs-mode: nil
+# End:
+# vim: sw=2 expandtab
