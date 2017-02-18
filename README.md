@@ -3,6 +3,9 @@
 
 Development of testing infrastructure for TeX (Live)
 
-more to come
+# setup
 
+link or copy a `tlpkg` directory into the checkout
+
+more to come
 
